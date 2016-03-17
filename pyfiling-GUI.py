@@ -47,6 +47,7 @@ class FileOrganizer(Widget):
             directory += '/'
 
         #General File Type Extentions
+        apps      = ['.exe']
         code      = ['.py','.java','.c','.cpp','.rb','.asm','.php','.html',
                      '.css','.js','.lua']
 
@@ -62,17 +63,26 @@ class FileOrganizer(Widget):
                      '.potx','.potm','.ppam','.ppsm','.sldx','.sldm']
 
         #Hold files of the same type
+        app = [] #holds applications
         cod = [] #holds files of type code
         mus = [] #holds files of type music
         vid = [] #holds files of type video
         pic = [] #holds files of type picture
         arc = [] #holds files of type archives
         doc = [] #holds files of type document
+        oth = [] #holds files of any other type
 
-        #allTypes = [cod, mus, vid, pic, arc, doc]
+        #allTypes = [cod, mus, vid, pic, arc, doc, app, oth]
 
         #Check each file in the directory
         for fil in listdir(directory):
+
+            for x in apps:
+                if fil.endswith(x) or fil.endswith(x.upper()):
+                    app.append(fil)
+                    if not path.exists(directory+'Applications/'):
+                        makedirs(directory+'Applications/')
+                    rename(directory+fil, directory+'Applications/'+fil)
 
             for x in code:
                 if fil.endswith(x) or fil.endswith(x.upper()):
