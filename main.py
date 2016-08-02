@@ -8,84 +8,32 @@ if not directory.endswith('/'):
     directory += '/'
 
 #General File Type Extentions
-apps      = ['.exe']
-code      = ['.py','.java','.c','.cpp','.rb','.asm','.php','.html',
-             '.css','.js','.lua','.jar','.o','.obj']
+apps      = ("Applications", ['.exe'])
+code      = ("Code", ['.py','.java','.c','.cpp','.rb','.asm','.php','.html',
+             '.css','.js','.lua','.jar','.o','.obj'])
 
-music     = ['.mp3','.ogg','.wav']
-videos    = ['.mp4','.3gp','.avi']
-pictures  = ['.jpg','.jpeg','.png','.bmp','.gif']
-archives  = ['.zip','.rar','.7zip','.tar','.iso']
+music     = ("Music", ['.mp3','.ogg','.wav'])
+videos    = ("Videos", ['.mp4','.3gp','.avi'])
+pictures  = ("Pictures", ['.jpg','.jpeg','.png','.bmp','.gif'])
+archives  = ("Archives", ['.zip','.rar','.7zip','.tar','.iso'])
 
-documents = ['.docx','.doc','.pdf','.txt','.ppt','.pptx','.ppsx','.pptm',
+documents = ("Documents", ['.docx','.doc','.pdf','.txt','.ppt','.pptx','.ppsx','.pptm',
              '.docm','.dotx','.dotm','.docb','.xlsx','.xlsm','.xltx',
              '.xltm','.xlsb','.xla','.xlam','.xll','.xlw',
              '.ACCDB','.ACCDE','.ACCDT','.ACCDR','.pub',
-             '.potx','.potm','.ppam','.ppsm','.sldx','.sldm']
+             '.potx','.potm','.ppam','.ppsm','.sldx','.sldm'])
 
-#Hold files of the same type
-app = [] #holds applications
-cod = [] #holds files of type code
-mus = [] #holds files of type music
-vid = [] #holds files of type video
-pic = [] #holds files of type picture
-arc = [] #holds files of type archives
-doc = [] #holds files of type document
-oth = [] #holds files of any other type
-
-#allTypes = [cod, mus, vid, pic, arc, doc, app, oth]
+allTypes = [apps, code, music, videos, pictures, archives, documents]
 
 #Check each file in the directory
+
 for fil in listdir(directory):
-
-    for x in apps:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            app.append(fil)
-            if not path.exists(directory+'Applications/'):
-                makedirs(directory+'Applications/')
-            rename(directory+fil, directory+'Applications/'+fil)
-
-    for x in code:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            cod.append(fil)
-            if not path.exists(directory+'Code/'):
-                makedirs(directory+'Code/')
-            rename(directory+fil, directory+'Code/'+fil)
-       
-    for x in music:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            mus.append(fil)
-            if not path.exists(directory+'Music/'):
-                makedirs(directory+'Music/')
-            rename(directory+fil, directory+'Music/'+fil)
-
-    for x in videos:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            vid.append(fil)
-            if not path.exists(directory+'Videos/'):
-                makedirs(directory+'Videos/')
-            rename(directory+fil, directory+'Videos/'+fil)
-            
-    for x in pictures:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            pic.append(fil)
-            if not path.exists(directory+'Pictures/'):
-                makedirs(directory+'Pictures/')
-            rename(directory+fil, directory+'Pictures/'+fil)
-
-    for x in archives:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            arc.append(fil)
-            if not path.exists(directory+'Archives/'):
-                makedirs(directory+'Archives/')
-            rename(directory+fil, directory+'Archives/'+fil)
-
-    for x in documents:
-        if fil.endswith(x) or fil.endswith(x.upper()):
-            doc.append(fil)
-            if not path.exists(directory+'Documents/'):
-                makedirs(directory+'Documents/')
-            rename(directory+fil, directory+'Documents/'+fil)
+    for typ in allTypes:
+        for x in typ[1]:
+            if fil.endswith(x) or fil.endswith(x.upper()):
+                if not path.exists(directory+typ[0]+'/'):
+                    makedirs(directory+typ[0]+'/')
+                rename(directory+fil, directory+typ[0]+'/'+fil)
 
 print ""
 print "How to Find What We Organised:"
