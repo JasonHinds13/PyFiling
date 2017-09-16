@@ -1,4 +1,5 @@
 from os import listdir, path, makedirs, rename, environ, path, name
+import getpass
 
 #Directory to sort
 if name == 'nt':
