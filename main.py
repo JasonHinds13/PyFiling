@@ -1,7 +1,14 @@
-from os import listdir, path, makedirs, rename
+from os import listdir, path, makedirs, rename, environ, path, name
 
 #Directory to sort
-directory = raw_input("Enter Folder : ")
+if name == 'nt':
+    # requests user input of relative file path from users profile folder (Windows)
+    relative_directory = raw_input("Enter Reletive Folder Path from {0}: ".format(getpass.getuser()))
+    directory =  path.join(environ['USERPROFILE'], relative_directory)
+else:
+    # requests user input of relative file path from users profile folder (Unix)
+    relative_directory = raw_input("Enter Reletive Folder Path from {0}: ".format(getpass.getuser()))
+    directory =  path.join(environ['HOME'], relative_directory)
 
 #To make sure that the directory ends with a '/'
 if not directory.endswith('/'):
@@ -42,3 +49,4 @@ print "Archives Folder     - Contains rar/zip Files and Other Archives."
 print "Documents Folder    - Contains Powerpoint and Documents from MS Office."
 print "Applications Folder - Contains applications and executable programs."
 print "Other Folder        - Contains files that were not sorted into a folder."
+raw_input('Hit enter to exit')
