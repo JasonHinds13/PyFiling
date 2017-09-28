@@ -1,4 +1,5 @@
 from os import listdir, path, makedirs, rename, environ, path, name
+from datetime import datetime
 import getpass
 
 #Directory to sort
@@ -37,7 +38,9 @@ for fil in listdir(directory):
             if fil.endswith(ex) or fil.endswith(ex.upper()):
                 if not path.exists(directory+typ+'/'):
                     makedirs(directory+typ+'/')
-                rename(directory+fil, directory+typ+'/'+fil)
+
+                current_date_time = "-{0}-{1}-{2}-{3}-{4}-{5}-{6}".format(datetime.now().day, datetime.now().month,datetime.now().year, datetime.now().hour, datetime.now().minute, datetime.now().second, datetime.now().microsecond)
+                rename(directory+fil, directory+typ+'/'+fil.rsplit(".exe")[0]+current_date_time+ex)
                 print fil + " : " + typ
 
 print ""
