@@ -1,4 +1,5 @@
 from os import listdir, path, makedirs, rename, environ, path, name
+from datetime import datetime
 import getpass
 
 #Directory to sort
@@ -17,17 +18,17 @@ if not directory.endswith('/'):
 
 #General File Type Extentions
 exts = {
-"Applications": ['.exe'],
+"Applications": ['.exe', '.bat', '.msi', '.deb'],
 "Code": ['.py','.java','.c','.cpp','.rb','.asm','.php','.html','.css','.js','.lua','.jar','.o','.obj'],
 "Music": ['.mp3','.ogg','.wav'],
 "Videos": ['.mp4','.3gp','.avi'],
 "Pictures": ['.jpg','.jpeg','.png','.bmp','.gif'],
-"Archives": ['.zip','.rar','.7zip','.tar','.iso'],
+"Archives": ['.zip','.rar','.7zip','.tar','.iso', '.gz', '.xz', '.bz2'],
 "Documents": ['.docx','.doc','.pdf','.txt','.ppt','.pptx','.ppsx','.pptm',
              '.docm','.dotx','.dotm','.docb','.xlsx','.xlsm','.xltx',
              '.xltm','.xlsb','.xla','.xlam','.xll','.xlw',
              '.ACCDB','.ACCDE','.ACCDT','.ACCDR','.pub',
-             '.potx','.potm','.ppam','.ppsm','.sldx','.sldm']
+             '.potx','.potm','.ppam','.ppsm','.sldx','.sldm', '.accdb']
 }
 
 #Check each file in the directory
@@ -37,7 +38,11 @@ for fil in listdir(directory):
             if fil.endswith(ex) or fil.endswith(ex.upper()):
                 if not path.exists(directory+typ+'/'):
                     makedirs(directory+typ+'/')
-                rename(directory+fil, directory+typ+'/'+fil)
+                current_date_time = ".{0}-{1}-{2}-{3}-{4}-{5}-{6}".format(datetime.now().day, datetime.now().month,
+                                                                          datetime.now().year, datetime.now().hour,
+                                                                          datetime.now().minute, datetime.now().second,
+                                                                          datetime.now().microsecond)
+                rename(directory+fil, directory+typ+'/'+fil.rsplit(ex)[0]+current_date_time+ex)
                 print fil + " : " + typ
 
 print ""
